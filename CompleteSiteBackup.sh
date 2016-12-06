@@ -5,10 +5,8 @@ datenow=`date +"%Y%m%d"`
 USER=""
 #password for the user above
 PASSWORD=""
-#databases backup path
-path="/root/sitesBackups/databases$datenow"
-#path to delete old files from
-DELPATH="/root/sitesBackups/"
+#all files backup path
+path="/root/sitesBackups/"
 #pushover details
 TOKEN=""
 USERID=""
@@ -16,8 +14,6 @@ USERID=""
 MAIL=""
 #the path where your sites files are
 sitespath="/home/nginx/domains/"
-#path where you want to backup
-backupplace="/root/sitesBackups/sites$datenow"
 STATUS="/root/sitesBackups/statusfile.$datenow"
 siteslist=$(ls $sitespath)
 
@@ -29,18 +25,13 @@ if [ ! -d $path ]; then
 else
  :
 fi
-if [ ! -d $backupplace ]; then
-  mkdir -p $backupplace
-else
- :
-fi
 
 
 
 #SITES FILES BACKUP
 
 printf "these sites will be backed up\n $siteslist\n"
-cd $backupplace
+cd $path
 var1=0
 for site in $siteslist; do
 tar -cf $site$datenow.tar $sitespath$site
@@ -107,7 +98,7 @@ done
 if [ $errorcounter -ne 0 ] || [ $var1 -ne 0 ]; then
 	printf "Not deleting anything due to errors in mysqldump\n" >> $STATUS
 else
-	find $DELPATH* -mtime +5 -exec rm {} \;
+	find $path -mtime +5 -exec rm {} \;
 	printf "\nFiles older than 5 days have been deleted\n" >> $STATUS
 fi
 
