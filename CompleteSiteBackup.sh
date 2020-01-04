@@ -102,7 +102,7 @@ else
 	printf "\nFiles older than 5 days have been deleted\n" >> $STATUS
 fi
 
-#notify me of all the results
+#notify me of all the results using Pushover
         curl -s \
         -F "token=$TOKEN" \
         -F "user=$USERID" \
