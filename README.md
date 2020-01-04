@@ -17,14 +17,10 @@ I have included a check on mysqldump so you would know if the process ended with
 
 You can add this shell script to a cronjob to run every a couple of days
 
-in order to do this you need to run
-
-crontab -e
-
-and add there your script according to your needs
-
+in order to do this you need to run `crontab -e` and add there your script according to your needs
+~~~~
 0 0 */2 * * /root/tools/dbbackup.sh 2>/dev/null
-
+~~~~
 
 
 ###########-to do list-###########
